@@ -156,7 +156,7 @@ The English texts below are the game's own.
   (ğ ı İ ş Ğ Ş) to its fonts itself.
 - The English text on the left must be **exactly** the game's, spaces
   included ("key  (" above has two spaces, as in the game). Take it from a
-  template rather than typing it.
+  template rather than typing it (see below).
 - `&&&` is a value the game puts in later (a key name, a number, a player
   name). Keep the same number of them; they may move in the sentence.
 - Keep spaces at the start and end of a text: the game builds some
@@ -165,24 +165,64 @@ The English texts below are the game's own.
   bytes a line.
 - Lines you leave out stay in English.
 
-### Sharing a translation
+### Translating the game
 
-A translation you share should not contain the game's English text. The
-game also understands a key made from the English text instead of the
-text itself, a `#` and a hash:
+Translations can be made now, before the first release, on a PC (Windows,
+Linux, macOS) with [Python 3](https://www.python.org/) and your own copy of
+the game. The [`translation`](translation/) folder has what you need:
 
-```
-// OpenMoHAA language: Deutsch
-{ "#04e3c5d0" "Deutscher Kontrollpunkt, 200 Yards." }
-```
+| File | What it is |
+|---|---|
+| [`mklang.py`](translation/mklang.py) | the translation tool (Python 3, nothing else needed) |
+| [`localization-template.txt`](translation/localization-template.txt) | the list of every string of the three games (about 3,900), as hashes: it holds no text of the game, it is used to count your progress |
 
-You translate with the English keys; a tool turns the finished file into
-this form. The Turkish translation is shipped this way, so it contains no
-text of the game.
+The English text comes from your own installed game; it is not in this
+repository (it belongs to EA).
 
-Want to translate the game? A template has every English string of the
-three games (about 3,900) on both sides of each line; you change the right
-side. Open an issue to get one or to share your translation.
+1. **Make your working file** from the game's folders (`main` is enough
+   for Allied Assault; add `mainta` and `maintt` for the expansions):
+
+   ```
+   python mklang.py template localization-de.txt "C:\Games\MOHAA\main" "C:\Games\MOHAA\mainta" "C:\Games\MOHAA\maintt"
+   ```
+
+   Every line has the English on both sides:
+   `{ "Game Saved" "Game Saved" }`.
+2. **Translate**: put the language's name on the first line
+   (`// OpenMoHAA language: Deutsch`) and change the right side of the
+   lines. Leave the left side exactly as it is. Lines you do not change
+   stay in English in the game.
+3. **Check** it for lines the game would not take (too long, `&&&`
+   missing, spaces):
+
+   ```
+   python mklang.py check localization-de.txt
+   ```
+4. **See how far you are**:
+
+   ```
+   python mklang.py progress localization-de.txt localization-template.txt
+   localization-de.txt: 1250 of 3860 strings translated (32.4%)
+   ```
+5. **Try it** in the game: copy the file to the Amiga as
+   `main/global/localization-de.txt` and choose the language in MOHAAPrefs.
+6. **Share it**: turn it into a file without the game's English text and
+   share that one (open an issue or a pull request here):
+
+   ```
+   python mklang.py publish localization-de.txt localization-de.share.txt
+   ```
+
+   ```
+   // OpenMoHAA language: Deutsch
+   { "#04e3c5d0" "Deutscher Kontrollpunkt, 200 Yards." }
+   ```
+
+   The game reads this form the same way: it matches each `#` key with
+   the hash of the English text. Players put it in
+   `main/global/localization-de.txt` too.
+
+The included Turkish translation is shipped in this shared form.
 
 ## Performance
 
