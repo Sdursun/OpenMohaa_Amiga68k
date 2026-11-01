@@ -51,7 +51,7 @@ as fast on every system.
      openmohaa_ogle2        GLES2 build
      MOHAA, Spearhead, Breakthrough (+ _ogle2)   start icons
      MOHAAPrefs             settings
-     main/  mainta/  maintt/   game data (yours), plus the zz_amiga_*.pk3 files
+     main/  mainta/  maintt/   game data (yours, unchanged)
    ```
 3. Start the game from Workbench with the **MOHAA**, **Spearhead** or
    **Breakthrough** icon (or the `_ogle2` icons for the GLES2 build).
@@ -152,8 +152,8 @@ The English texts below are the game's own.
 ### Rules
 
 - Save the file as **UTF-8**. Letters such as ä ö ü ß é è à ç ñ ¿ ¡ are in
-  the game's own fonts; no extra font is needed. For Turkish,
-  `zz_amiga_fonts.pk3` adds the Turkish letters.
+  the game's own fonts. For Turkish the game adds the missing letters
+  (ğ ı İ ş Ğ Ş) to its fonts itself.
 - The English text on the left must be **exactly** the game's, spaces
   included ("key  (" above has two spaces, as in the game). Take it from a
   template rather than typing it.
@@ -164,6 +164,21 @@ The English texts below are the game's own.
 - No double quotes (`"`) inside a translation (use `'`), at most 255
   bytes a line.
 - Lines you leave out stay in English.
+
+### Sharing a translation
+
+A translation you share should not contain the game's English text. The
+game also understands a key made from the English text instead of the
+text itself, a `#` and a hash:
+
+```
+// OpenMoHAA language: Deutsch
+{ "#04e3c5d0" "Deutscher Kontrollpunkt, 200 Yards." }
+```
+
+You translate with the English keys; a tool turns the finished file into
+this form. The Turkish translation is shipped this way, so it contains no
+text of the game.
 
 Want to translate the game? A template has every English string of the
 three games (about 3,900) on both sides of each line; you change the right
