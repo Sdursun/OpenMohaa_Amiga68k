@@ -38,6 +38,12 @@ Translating:
      the file to share (hash keys, no text of the game); it works in the
      game the same way
 
+Working on a shared file (to improve or finish someone's translation):
+  python mklang.py unhash localization-tr.txt localization-tr.work.txt <path>/main <path>/mainta <path>/maintt
+     the English from your own game goes back in front of each translation;
+     lines not translated yet are added with the English on both sides.
+     Then continue from step 2.
+
 Commands:
   template <out.txt> <game folder> [<game folder> ...]
       a working file: every English string of the given games (main
@@ -48,6 +54,8 @@ Commands:
       how many of the template's strings the translation covers
   publish <localization-xx.txt> <out.txt>
       the file to share: each English text replaced by its hash
+  unhash <shared.txt> <out.txt> <game folder> [...]
+      the other way: a shared file back to English keys, from your game
   hashtemplate <out.txt> <game folder> [...]
       the list of all strings as hashes with empty translations
       (localization-template.txt)
@@ -291,6 +299,35 @@ def progress(path, template):
     print("%s: %d of %d strings translated (%.1f%%)" % (path, n, len(wanted), 100.0 * n / max(len(wanted), 1)))
 
 
+def language_name(path):
+    with open(path, encoding="utf-8-sig") as f:
+        for line in f:
+            m = re.search(r"language:\s*(.+)", line)
+            if m:
+                return m.group(1).strip()
+    return "?"
+
+
+def unhash(shared, out, folders):
+    """a shared (hash keyed) file back to a working file: the English of the
+    installed game in front of each translation, the untranslated strings
+    with the English on both sides"""
+    translated = {key_hash(k): tr for k, tr in read_text(shared) if tr}
+    found = {}
+    for folder in folders:
+        for s in strings(folder):
+            found.setdefault(s, None)
+    pairs, used = [], set()
+    for s in found:
+        h = loc_hash(s.encode("latin-1"))
+        en = game_text(s)
+        if h in translated:
+            used.add(h)
+        pairs.append((en, translated.get(h, en)))
+    write_text(out, language_name(shared), pairs)
+    print("%d translations matched, %d not found in these game folders" % (len(used), len(translated) - len(used)))
+
+
 def main():
     a = sys.argv[1:]
     if len(a) >= 3 and a[0] == "extract":
@@ -309,6 +346,8 @@ def main():
         progress(a[1], a[2])
     elif len(a) >= 3 and a[0] == "publish":
         publish(a[1], a[2])
+    elif len(a) >= 4 and a[0] == "unhash":
+        unhash(a[1], a[2], a[3:])
     else:
         sys.exit(__doc__)
 

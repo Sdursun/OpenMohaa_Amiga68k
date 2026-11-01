@@ -224,6 +224,23 @@ repository (it belongs to EA).
 
 The included Turkish translation is shipped in this shared form.
 
+**Where do the words behind the hashes come from?** From your own game.
+You never translate hashes: `template` gives you the English, and to work
+on a shared file (to correct or finish someone's translation),
+`unhash` puts the English from your game back in front of each line.
+Lines nobody has translated yet come with the English on both sides:
+
+```
+python mklang.py unhash localization-tr.txt localization-tr.work.txt "C:\Games\MOHAA\main" "C:\Games\MOHAA\mainta" "C:\Games\MOHAA\maintt"
+```
+
+```
+{ "Game Saved" "Oyun Kaydedildi" }
+{ "Health" "Sağlık" }
+```
+
+Then continue from step 2, and `publish` it again when you are done.
+
 ## Performance
 
 The game is CPU bound on the Amiga, so resolution matters much less than
