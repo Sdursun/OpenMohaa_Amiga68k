@@ -97,22 +97,77 @@ text. A translation is a plain UTF-8 text file in the game folder:
 main/global/localization-<code>.txt
 ```
 
+One file covers Allied Assault, Spearhead and Breakthrough. Choose the
+language (and turn subtitles on) in MOHAAPrefs. A Turkish translation is
+included. Pictures (briefing pages, some buttons) cannot be translated this
+way.
+
+### File names
+
+The code is free (up to 11 characters); MOHAAPrefs takes the part between
+`localization-` and `.txt`. Two-letter ISO 639-1 codes are the usual
+choice:
+
+| Language | File | First line (the name MOHAAPrefs shows) |
+|---|---|---|
+| German | `main/global/localization-de.txt` | `// OpenMoHAA language: Deutsch` |
+| French | `main/global/localization-fr.txt` | `// OpenMoHAA language: Français` |
+| Spanish | `main/global/localization-es.txt` | `// OpenMoHAA language: Español` |
+| Italian | `main/global/localization-it.txt` | `// OpenMoHAA language: Italiano` |
+
+### Examples
+
+The English texts below are the game's own.
+
+`localization-de.txt`
 ```
 // OpenMoHAA language: Deutsch
 { "Health" "Gesundheit" }
 { "Game Saved" "Spiel gespeichert" }
+{ "An objective has been added!" "Ein Ziel wurde hinzugefügt!" }
+{ "German checkpoint, 200 yards." "Deutscher Kontrollpunkt, 200 Yards." }
+{ "Press the USE key  ( &&& ) to grab items off tables." "Drücke die BENUTZEN-Taste  ( &&& ), um Gegenstände von Tischen zu nehmen." }
 ```
 
-The first line names the language for MOHAAPrefs. Each line holds the
-English text exactly as the game has it, then the translation. One file
-covers all three games. Western European languages work with the game's
-own fonts. For Turkish, `zz_amiga_fonts.pk3` adds the Turkish letters.
+`localization-fr.txt`
+```
+// OpenMoHAA language: Français
+{ "Health" "Santé" }
+{ "Game Saved" "Partie sauvegardée" }
+{ "An objective has been added!" "Un objectif a été ajouté !" }
+{ "German checkpoint, 200 yards." "Poste de contrôle allemand, à 200 yards." }
+{ "Press the USE key  ( &&& ) to grab items off tables." "Appuie sur la touche UTILISER  ( &&& ) pour prendre les objets sur les tables." }
+```
 
-A Turkish translation is included. Pictures (briefing pages, some buttons)
-cannot be translated this way.
+`localization-es.txt`
+```
+// OpenMoHAA language: Español
+{ "Health" "Salud" }
+{ "Game Saved" "Partida guardada" }
+{ "An objective has been added!" "¡Se ha añadido un objetivo!" }
+{ "German checkpoint, 200 yards." "Control alemán, a 200 yardas." }
+{ "Press the USE key  ( &&& ) to grab items off tables." "Pulsa la tecla USAR  ( &&& ) para coger objetos de las mesas." }
+```
 
-Want to translate the game? A tool makes a template with every English
-string from your installed game. See the release notes, or open an issue.
+### Rules
+
+- Save the file as **UTF-8**. Letters such as ä ö ü ß é è à ç ñ ¿ ¡ are in
+  the game's own fonts; no extra font is needed. For Turkish,
+  `zz_amiga_fonts.pk3` adds the Turkish letters.
+- The English text on the left must be **exactly** the game's, spaces
+  included ("key  (" above has two spaces, as in the game). Take it from a
+  template rather than typing it.
+- `&&&` is a value the game puts in later (a key name, a number, a player
+  name). Keep the same number of them; they may move in the sentence.
+- Keep spaces at the start and end of a text: the game builds some
+  sentences from pieces.
+- No double quotes (`"`) inside a translation (use `'`), at most 255
+  bytes a line.
+- Lines you leave out stay in English.
+
+Want to translate the game? A template has every English string of the
+three games (about 3,900) on both sides of each line; you change the right
+side. Open an issue to get one or to share your translation.
 
 ## Performance
 
