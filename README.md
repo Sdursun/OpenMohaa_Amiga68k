@@ -117,36 +117,48 @@ choice:
 
 ### Examples
 
-The English texts below are the game's own.
+A translation file has one line per text. In your **working file**,
+made from your own game (see [Translating the game](#translating-the-game)),
+each line starts with the English exactly as the game has it, then your
+translation:
+
+```
+// OpenMoHAA language: Deutsch
+{ "<English text, from your game>" "<your translation>" }
+```
+
+The **file you share** has a hash of the English instead (`publish` makes
+it), so it holds no text of the game. The game reads both forms. The same
+five lines in three languages, as shared files:
 
 `localization-de.txt`
 ```
 // OpenMoHAA language: Deutsch
-{ "Health" "Gesundheit" }
-{ "Game Saved" "Spiel gespeichert" }
-{ "An objective has been added!" "Ein Ziel wurde hinzugefügt!" }
-{ "German checkpoint, 200 yards." "Deutscher Kontrollpunkt, 200 Yards." }
-{ "Press the USE key  ( &&& ) to grab items off tables." "Drücke die BENUTZEN-Taste  ( &&& ), um Gegenstände von Tischen zu nehmen." }
+{ "#986145af" "Gesundheit" }
+{ "#4e011024" "Spiel gespeichert" }
+{ "#18f3d9d6" "Ein Ziel wurde hinzugefügt!" }
+{ "#04e3c5d0" "Deutscher Kontrollpunkt, 200 Yards." }
+{ "#dcc2d351" "Drücke die BENUTZEN-Taste  ( &&& ), um Gegenstände von Tischen zu nehmen." }
 ```
 
 `localization-fr.txt`
 ```
 // OpenMoHAA language: Français
-{ "Health" "Santé" }
-{ "Game Saved" "Partie sauvegardée" }
-{ "An objective has been added!" "Un objectif a été ajouté !" }
-{ "German checkpoint, 200 yards." "Poste de contrôle allemand, à 200 yards." }
-{ "Press the USE key  ( &&& ) to grab items off tables." "Appuie sur la touche UTILISER  ( &&& ) pour prendre les objets sur les tables." }
+{ "#986145af" "Santé" }
+{ "#4e011024" "Partie sauvegardée" }
+{ "#18f3d9d6" "Un objectif a été ajouté !" }
+{ "#04e3c5d0" "Poste de contrôle allemand, à 200 yards." }
+{ "#dcc2d351" "Appuie sur la touche UTILISER  ( &&& ) pour prendre les objets sur les tables." }
 ```
 
 `localization-es.txt`
 ```
 // OpenMoHAA language: Español
-{ "Health" "Salud" }
-{ "Game Saved" "Partida guardada" }
-{ "An objective has been added!" "¡Se ha añadido un objetivo!" }
-{ "German checkpoint, 200 yards." "Control alemán, a 200 yardas." }
-{ "Press the USE key  ( &&& ) to grab items off tables." "Pulsa la tecla USAR  ( &&& ) para coger objetos de las mesas." }
+{ "#986145af" "Salud" }
+{ "#4e011024" "Partida guardada" }
+{ "#18f3d9d6" "¡Se ha añadido un objetivo!" }
+{ "#04e3c5d0" "Control alemán, a 200 yardas." }
+{ "#dcc2d351" "Pulsa la tecla USAR  ( &&& ) para coger objetos de las mesas." }
 ```
 
 ### Rules
@@ -154,16 +166,16 @@ The English texts below are the game's own.
 - Save the file as **UTF-8**. Letters such as ä ö ü ß é è à ç ñ ¿ ¡ are in
   the game's own fonts. For Turkish the game adds the missing letters
   (ğ ı İ ş Ğ Ş) to its fonts itself.
-- The English text on the left must be **exactly** the game's, spaces
-  included ("key  (" above has two spaces, as in the game). Take it from a
-  template rather than typing it (see below).
+- In the working file, leave the English on the left **exactly** as it
+  is, spaces included (some texts have two spaces in a row). It comes from
+  the template; do not type it.
 - `&&&` is a value the game puts in later (a key name, a number, a player
   name). Keep the same number of them; they may move in the sentence.
 - Keep spaces at the start and end of a text: the game builds some
   sentences from pieces.
 - No double quotes (`"`) inside a translation (use `'`), at most 255
   bytes a line.
-- Lines you leave out stay in English.
+- Lines you leave out, or leave unchanged, stay in English.
 
 ### Translating the game
 
@@ -187,7 +199,7 @@ repository (it belongs to EA).
    ```
 
    Every line has the English on both sides:
-   `{ "Game Saved" "Game Saved" }`.
+   `{ "<English>" "<English>" }`.
 2. **Translate**: put the language's name on the first line
    (`// OpenMoHAA language: Deutsch`) and change the right side of the
    lines. Leave the left side exactly as it is. Lines you do not change
@@ -235,8 +247,8 @@ python mklang.py unhash localization-tr.txt localization-tr.work.txt "C:\Games\M
 ```
 
 ```
-{ "Game Saved" "Oyun Kaydedildi" }
-{ "Health" "Sağlık" }
+{ "<English text, from your game>" "Oyun Kaydedildi" }
+{ "<English text, from your game>" "Sağlık" }
 ```
 
 Then continue from step 2, and `publish` it again when you are done.
